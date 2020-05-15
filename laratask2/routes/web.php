@@ -16,3 +16,25 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/home', function () {
+    return view('home');
+});
+// Auth
+Route::get('/login',[
+    'uses' => 'LoginController@loginForm',
+    'as' => 'login'
+]);
+Route::post('/loginSubmit',[
+    'uses' => 'LoginController@login',
+    'as' => 'loginSubmit'
+]);
+
+Route::get('/register',[
+    'uses' => 'LoginController@registerForm',
+    'as' => 'register'
+]);
+Route::post('/registerSubmit',[
+    'uses' => 'LoginController@register',
+    'as' => 'registerSubmit'
+]);
