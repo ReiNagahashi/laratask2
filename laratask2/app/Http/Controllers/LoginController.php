@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\User;
+use Request;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 
 class LoginController extends Controller
 {
@@ -12,43 +13,20 @@ class LoginController extends Controller
         return view('auth.register');
     }
 
-    public function register(Request $request){
-        $this->validate($request,[
-            // ここはform内にあるname！！！
-            'name' => 'required',
-            'email'=>'required',
-            'password'=>'required|min:7',
-            'confirmPassword'=>'required|same:password'
-        ]);
+    public function register(RegisterRequest $request){
+        $name = Request::input('name');
 
-        $user = new User;
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        
-        $user->save();
-
-        return view('home')->with('user',$user);
+        return view('home',compact('name'));
     }
 
     public function loginForm(){
         return view('auth.login');
     }
 
-    public function login(Request $request){
-        $this->validate($request,[
-            'email'=>'required',
-            'password'=>'required|min:7',
-        ]);
+    public function login(LoginRequest $request){
 
-        $user = User::where('password',$request->password)->orWhere('email',$request->email)->first();
-        if($user != null){
-            return view('home')->with('user',$user);
-        }else{
-            Session::flash('danger','Email or password are not much');
-            return redirect('login');
-        }
+        $name = Request::input('name');
 
-
+        return view('home',compact('name'));
     }
 }

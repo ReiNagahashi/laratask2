@@ -6,7 +6,7 @@
             This Is Register Page!
         </div>
         <div class="card-body">
-            <form action="{{route('registerSubmit')}}" method="POST">
+            <form action="{{route('registerSubmit')}}" method="POST" accept-charset="utf-8">
                 @csrf
                 <div class="form-group">
                     <label for="name">Name</label>

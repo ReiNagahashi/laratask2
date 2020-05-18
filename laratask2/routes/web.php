@@ -20,12 +20,15 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 });
+
+Route::group(['middleware' => ['web']], function () {
+
 // Auth
 Route::get('/login',[
     'uses' => 'LoginController@loginForm',
     'as' => 'login'
 ]);
-Route::post('/loginSubmit',[
+Route::post('/login',[
     'uses' => 'LoginController@login',
     'as' => 'loginSubmit'
 ]);
@@ -34,7 +37,9 @@ Route::get('/register',[
     'uses' => 'LoginController@registerForm',
     'as' => 'register'
 ]);
-Route::post('/registerSubmit',[
+Route::post('/register',[
     'uses' => 'LoginController@register',
     'as' => 'registerSubmit'
 ]);
+
+});
